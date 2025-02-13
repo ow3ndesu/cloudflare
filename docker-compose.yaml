@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared-tunnel
+    command: tunnel --no-autoupdate run --token ${token}
+    restart: unless-stopped
+    networks:
+      - tunnel-network
+    env_file:
+      - ".env"
+
+networks:
+  tunnel-network:
+    driver: bridge
